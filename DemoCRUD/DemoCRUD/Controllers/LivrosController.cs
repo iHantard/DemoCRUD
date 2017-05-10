@@ -17,9 +17,16 @@ namespace DemoCRUD.Controllers
 
         // GET: Livros
         public ActionResult Index()
+        {            
+            return View();
+        }
+        public PartialViewResult Listar()
         {
             var livros = db.Livros.Include(l => l.Genero);
-            return View(livros.ToList());
+
+            var livrosPaginados = livros.OrderBy(l => l.Titulo);
+
+            return PartialView("_Listar", livros.ToList());
         }
 
         // GET: Livros/Details/5
